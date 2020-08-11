@@ -15,8 +15,8 @@
                     return response.json();
                 }).then(function (data) {
                     var htmlTxt = '';
-                   
-                        var furniture = data[0];
+                    //added for loop and changed product.sku to data[i].sku, product.imageURL to data[i].imageURL, etc...
+                        for(var i = 0;i <data.length;i++){
                         //generate html for furnitures
                         htmlTxt += '\
                             <li class="col-md-3 col-sm-6 col-xs-12 product" style="padding-bottom: 1%;padding-top: 2%;">\
@@ -24,41 +24,42 @@
                                     <span class="product-thumb-info-image">\
                                         <span class="product-thumb-info-act">\
                                             <span class="product-thumb-info-act-left">\
-                                                <a href="furnitureProductDetails.html?sku=' + furniture.sku + '" style="color: white"><em>View Details</em></a>\
+                                                <a href="furnitureProductDetails.html?sku=' + data[i].sku + '" style="color: white"><em>View Details</em></a>\
                                             </span>\
                                         </span>\
-                                        <img alt=""  class="img-responsive" src="' + furniture.imageURL + '">\
+                                        <img alt=""  class="img-responsive" src="' + data[i].imageURL + '">\
                                     </span>\
                                     <span class="product-thumb-info-content">\
-                                        <h4>' + furniture.name + '</h4>\
+                                        <h4>' + data[i].name + '</h4>\
                                         <span class="product-thumb-info-act-left">\
-                                            <em>Height: ' + furniture.height + '</em>\
+                                            <em>Height: ' + data[i].height + '</em>\
                                         </span><br/>\
                                         <span class="product-thumb-info-act-left">\
-                                            <em>Length: ' + furniture.length + '</em>\
+                                            <em>Length: ' + data[i].length + '</em>\
                                         </span><br/>\
                                         <span class="product-thumb-info-act-left">\
-                                            <em>Width: ' + furniture.width + '</em>\
+                                            <em>Width: ' + data[i].width + '</em>\
                                         </span><br/>\
                                         <span class="product-thumb-info-act-left">\
-                                            <em>Price: $' + furniture.price + '.00</em>\
+                                            <em>Price: $' + data[i].price + '.00</em>\
                                         </span><br/>\
                                         <form action="furnitureProductDetails.html">\
-                                            <input type="hidden" name="sku" value="' + furniture.sku + '"/>\
+                                            <input type="hidden" name="sku" value="' + data[i].sku + '"/>\
                                             <input type="submit" class="btn btn-primary btn-block" value="More Details"/>\
                                         </form>';
                         //check if user is logged in
                         var memberEmail = sessionStorage.getItem('memberEmail');
                         //display 'Add To Cart' button only if user is logged in
                         if(memberEmail != null && memberEmail != '') {
-                            htmlTxt += '<button class="btn btn-primary btn-block" onclick="addToCart(\'' + furniture.sku +
-                                '\',\'' + furniture.id + '\',' + furniture.price + ',\'' + furniture.name + '\',\'' + furniture.imageURL +
+                            htmlTxt += '<button class="btn btn-primary btn-block" onclick="addToCart(\'' + data[i].sku +
+                                '\',\'' + data[i].id + '\',' + data[i].price + ',\'' + data[i].name + '\',\'' + data[i].imageURL +
                                 '\')">Add To Cart</button>';
                         }
                         htmlTxt += '</span></span></li>';
                    
                     document.getElementById("furnituresDisplay").innerHTML = htmlTxt;
                     document.getElementById("categoryTitle").innerHTML = cat;
+                        }
                 }).catch(function(error) {
                     console.log(error);
                 });
