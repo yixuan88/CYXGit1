@@ -17,10 +17,16 @@
                     method: 'GET'
                 })).then(function (response) {
                     return response.json();
+                   
                 }).then(function (product) {
-                    //set retail product details
+                    console.log(product.description)
+                    //set retail product detailsS
                     document.getElementById("productImg").setAttribute('src', product.imageURL);
-
+                    //MISSING LINE ADDED HERE
+                    document.getElementById("productName").innerHTML = product.name;
+                    document.getElementById("productDesc").innerHTML = product.description;
+                    document.getElementById("productPrice").innerHTML = product.price;
+                    //MISSING LINE ADDED HERE
                     document.getElementById("productCategory").innerHTML = product.category;
                     document.getElementById("productCategory").setAttribute('href', '/B/' + countryPrefix
                         + '/retailProductsCategory.html?cat=' + encodeURIComponent(product.category));
@@ -107,7 +113,7 @@
                                     <p class="taller" id="productDesc"></p>
                                     <div class="product_meta">
                                         <span class="posted_in">Category: <a rel="tag" id="productCategory"></a></span>
-                                    </div>
+                                    </div>  
                                     <br/><br/>
 
                                     <div class="row">
