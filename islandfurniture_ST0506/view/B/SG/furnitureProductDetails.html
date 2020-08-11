@@ -19,8 +19,13 @@
                     return response.json();
                 }).then(function (furniture) {
                     //set furniture details
+                    console.log(furniture)
                     document.getElementById("imgFurniture").setAttribute('src', furniture.imageURL);
-                
+                    //code added here
+                    document.getElementById("furnitureName").innerHTML = furniture.name;
+                    document.getElementById("price").innerHTML = furniture.price;
+                    document.getElementById("description").innerHTML = furniture.description;
+                    //code added here
                     if(memberEmail != null && memberEmail != '') {
                         document.getElementById("addToCartBtn").innerHTML = '<button class="btn btn-primary" onclick="addToCart(\''
                         + furniture.sku + '\',\'' + furniture.id + '\',' + furniture.price + ',\'' + furniture.name + '\',\''
