@@ -15,8 +15,8 @@
                     return response.json();
                 }).then(function (data) {
                     var htmlTxt = '';
-                
-                        var product = data[0];
+                        //added for loop and changed product.sku to data[i].sku, product.imageURL to data[i].imageURL, etc...
+                        for(var i = 0; i < data.length; i++){
                         //generate html for retail products
                         htmlTxt += '\
                             <li class="col-md-3 col-sm-6 col-xs-12 product" style="padding-bottom: 1%; padding-top: 2%;">\
@@ -24,18 +24,18 @@
                                     <span class="product-thumb-info-image">\
                                         <span class="product-thumb-info-act">\
                                             <span class="product-thumb-info-act-left">\
-                                                <a href="/B/' + countryPrefix + '/retailProductDetails.html?sku=' + product.sku + '" style="color: white"><em>View Details</em></a>\
+                                                <a href="/B/' + countryPrefix + '/retailProductDetails.html?sku=' + data[i].sku + '" style="color: white"><em>View Details</em></a>\
                                             </span>\
                                         </span>\
-                                        <img alt="" class="img-responsive" src="' + product.imageURL + '">\
+                                        <img alt="" class="img-responsive" src="' + data[i].imageURL + '">\
                                     </span>\
                                     <span class="product-thumb-info-content">\
-                                        <h4>' + product.name + '</h4>\
+                                        <h4>' + data[i].name + '</h4>\
                                         <span class="product-thumb-info-act-left">\
-                                            <em>Price: $' + product.price + '.00</em>\
+                                            <em>Price: $' + data[i].price + '.00</em>\
                                         </span><br/>\
                                         <form action="retailProductDetails.html">\
-                                            <input type="hidden" name="sku" value="' + product.sku + '"/>\
+                                            <input type="hidden" name="sku" value="' + data[i].sku + '"/>\
                                             <input type="submit" class="btn btn-primary btn-block" value="More Details"/>\
                                         </form>\
                                     </span>\
@@ -44,6 +44,7 @@
                 
                     document.getElementById("retailProductsDisplay").innerHTML = htmlTxt;
                     document.getElementById("categoryTitle").innerHTML = cat;
+                        }
                 }).catch(function(error) {
                     console.log(error);
                 });
